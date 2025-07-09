@@ -1,7 +1,7 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background: white;
+    background: #fff;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     overflow: hidden;
@@ -18,9 +18,8 @@
     z-index: 1;
 }
 .logo {
-    width: 60px;
+    width: 160px;
     height: 60px;
-    background: rgba(255,255,255,0.2);
     border-radius: 15px;
     margin: 0 auto 20px;
     display: flex;
@@ -92,7 +91,7 @@
     gap: 25px;
 }
 .activityCard {
-    background: white;
+    background: #fff;
     border: 1px solid #e9ecef;
     border-radius: 15px;
     padding: 25px;
@@ -145,41 +144,21 @@
     font-size: 0.9em;
     color: #888;
 }
-.metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-}
-.metricCard {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-.metricNumber {
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
-}
-.metricLabel {
-    font-size: 1em;
-    opacity: 0.9;
-    position: relative;
-    z-index: 1;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
 .footer {
-    background: #f8f9fa;
     padding: 30px 40px;
     text-align: center;
     border-top: 1px solid #e9ecef;
+}
+.rodapeImg {
+    width: 100%;
+    max-width: 100vw;
+    max-height: 48px;
+    height: auto;
+    object-fit: contain;
+    margin-top: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .signature {
     display: flex;
@@ -203,6 +182,9 @@
     color: #666;
     font-weight: 500;
 }
+.noPrint {
+    display: none !important;
+}
 @media (max-width: 768px) {
     .container {
         margin: 10px;
@@ -214,4 +196,129 @@
     .activityGrid, .metrics {
         grid-template-columns: 1fr;
     }
+}
+
+/* Esconde elementos .noPrint apenas durante exportação PDF */
+.exportando-pdf .noPrint {
+  display: none !important;
+}
+
+.onlyPrint {
+  display: none;
+}
+.exportando-pdf .onlyPrint {
+  display: inline !important;
+}
+
+body {
+    background: #F4F6FA;
+}
+
+.gerarPdfBtn {
+  background: #D32F2F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+.gerarPdfBtn:hover {
+  background: #b71c1c;
+}
+.expandirBtn {
+  background: #E8E8E8;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.expandirBtn.expandido {
+  background: #2A3990;
+  color: #fff;
+}
+.painelGerenciar {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(42,57,144,0.10);
+  padding: 18px 16px 16px 16px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid #E8E8E8;
+}
+.painelTitulo {
+  color: #2A3990;
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.painelLinha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.painelTituloAtividade {
+  flex: 1;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #222;
+}
+.painelSelect {
+  min-width: 120px;
+  font-weight: 600;
+  border: 1px solid #E8E8E8;
+  outline: 0;
+  border-radius: 20px;
+  padding: 6px 15px;
+  cursor: pointer;
+  background: #F5F7FA;
+  color: #2A3990;
+}
+.painelRemoverBtn {
+  background: #fff;
+  color: #D32F2F;
+  border: 1px solid #D32F2F;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+.painelRemoverBtn:hover {
+  background: #D32F2F;
+  color: #fff;
+}
+.painelAdicionarBtn {
+  background: linear-gradient(135deg, #2A3990 0%, #4A90E2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 700;
+  font-size: 17px;
+  margin-top: 8px;
+  box-shadow: 0 2px 8px rgba(42,57,144,0.08);
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+.painelAdicionarBtn:hover {
+  background: linear-gradient(135deg, #1A237E 0%, #4A90E2 100%);
 } 
