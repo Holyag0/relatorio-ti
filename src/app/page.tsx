@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import styles from "./relatorio.module.css";
-import Image from "next/image";
 
 const atividadesIniciais = [
   {
@@ -50,12 +49,7 @@ const atividadesIniciais = [
   },
 ];
 
-const proximosPassos = [
-  "Finalizar a implementação do Office 365 até agosto de 2025",
-  "Concluir a atualização da rede corporativa no prazo estabelecido",
-  "Implementar sistema de monitoramento avançado de infraestrutura",
-  "Desenvolver plano de continuidade de negócios para 2026",
-];
+
 
 export default function RelatorioTI() {
   const relatorioRef = useRef<HTMLDivElement>(null);
