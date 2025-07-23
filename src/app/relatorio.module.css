@@ -2,55 +2,82 @@
     max-width: 1200px;
     margin: 0 auto;
     background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     overflow: hidden;
 }
 .header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 40px;
-    text-align: center;
-    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 20px !important;
+    text-align: center !important;
+    position: relative !important;
 }
 .headerContent {
     position: relative;
     z-index: 1;
 }
 .logo {
-    width: 160px;
-    height: 60px;
-    border-radius: 15px;
-    margin: 0 auto 20px;
+    margin: 0 auto 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    backdrop-filter: blur(10px);
 }
-.subtitle {
-    font-size: 1.2em;
-    opacity: 0.9;
-    font-weight: 300;
+.headerText h1 {
+    font-size: 1.4em !important;
+    font-weight: bold !important;
+    margin: 4px 0 !important;
+    color: white !important;
+    line-height: 1.1 !important;
+}
+.headerText h2 {
+    font-size: 1.3em !important;
+    font-weight: bold !important;
+    margin: 4px 0 !important;
+    color: white !important;
+    line-height: 1.1 !important;
+}
+.headerText h3 {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    margin: 4px 0 !important;
+    color: white !important;
+    line-height: 1.1 !important;
+}
+.headerText h4 {
+    font-size: 1.1em !important;
+    font-weight: bold !important;
+    margin: 4px 0 !important;
+    color: white !important;
+    line-height: 1.1 !important;
 }
 .content {
     padding: 40px;
 }
 .reportInfo {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
     margin-bottom: 40px;
 }
-.infoCard {
+.infoBlock {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 25px;
+    padding: 30px;
     border-radius: 15px;
     border-left: 5px solid #667eea;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
 }
-.infoCard:hover {
-    transform: translateY(-5px);
+.infoBlock:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.infoRow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 200px;
 }
 .infoLabel {
     font-weight: 600;
@@ -58,7 +85,7 @@
     font-size: 0.9em;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 .infoValue {
     font-size: 1.1em;
@@ -143,6 +170,20 @@
     justify-content: space-between;
     font-size: 0.9em;
     color: #888;
+}
+.preFooter {
+    text-align: center;
+    margin: 40px 0 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    border-radius: 8px;
+}
+.preFooter p {
+    color: #2A3990;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.6;
 }
 .footer {
     padding: 30px 40px;
@@ -260,6 +301,33 @@
   font-size: 17px;
   margin-bottom: 8px;
   letter-spacing: 0.5px;
+}
+.painelControles {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.painelCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #333;
+}
+.painelCheckbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #667eea;
+  cursor: pointer;
+}
+.painelCheckbox span {
+  font-weight: 500;
 }
 .painelLinha {
   display: flex;

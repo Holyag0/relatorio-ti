@@ -55,6 +55,9 @@ export default function RelatorioTI() {
   const relatorioRef = useRef<HTMLDivElement>(null);
   const [atividades, setAtividades] = useState(atividadesIniciais);
   const [painelAberto, setPainelAberto] = useState(true);
+  const [mostrarStatus, setMostrarStatus] = useState(true);
+  const [mostrarPrazo, setMostrarPrazo] = useState(true);
+  const [mostrarPrioridade, setMostrarPrioridade] = useState(true);
 
   // Função para alterar status de uma atividade
   const alterarStatus = (index: number, novoStatus: string) => {
@@ -125,6 +128,32 @@ export default function RelatorioTI() {
         {painelAberto && (
           <div className={styles.painelGerenciar}>
             <strong className={styles.painelTitulo}>Gerenciar Atividades</strong>
+            <div className={styles.painelControles}>
+              <label className={styles.painelCheckbox}>
+                <input
+                  type="checkbox"
+                  checked={mostrarStatus}
+                  onChange={(e) => setMostrarStatus(e.target.checked)}
+                />
+                <span>Mostrar Status das Atividades</span>
+              </label>
+              <label className={styles.painelCheckbox}>
+                <input
+                  type="checkbox"
+                  checked={mostrarPrazo}
+                  onChange={(e) => setMostrarPrazo(e.target.checked)}
+                />
+                <span>Mostrar Prazo das Atividades</span>
+              </label>
+              <label className={styles.painelCheckbox}>
+                <input
+                  type="checkbox"
+                  checked={mostrarPrioridade}
+                  onChange={(e) => setMostrarPrioridade(e.target.checked)}
+                />
+                <span>Mostrar Prioridade das Atividades</span>
+              </label>
+            </div>
             {atividades.map((a, i) => (
               <div key={i} className={styles.painelLinha}>
                 <span className={styles.painelTituloAtividade}>{a.titulo}</span>
@@ -158,32 +187,38 @@ export default function RelatorioTI() {
         <header className={styles.header}>
           <div className={styles.headerContent}>
             <div className={styles.logo}>
-              <img src="/logo.png" alt="Logo" style={{ height: 80, width: "auto", display: "block", margin: "0 auto" }} />
+              <img src="/logo.png" alt="Logo CABEMCE" style={{ height: 80, width: "auto", display: "block", margin: "0 auto 5px" }} />
+              <h1 contentEditable suppressContentEditableWarning>Caixa Beneficente dos Militares do Ceará</h1>
             </div>
-            <h1 contentEditable suppressContentEditableWarning>Relatório de Atividades</h1>
-            <p className={styles.subtitle} contentEditable suppressContentEditableWarning>Departamento de Tecnologia da Informação</p>
+            <div className={styles.headerText}>
+              <h2 contentEditable suppressContentEditableWarning>Gabinete da Presidência</h2>
+              <h3 contentEditable suppressContentEditableWarning>Setor de Tecnologia da Informação</h3>
+              <h4 contentEditable suppressContentEditableWarning>Relatório de Atividades - T.I</h4>
+            </div>
           </div>
         </header>
         <div className={styles.content}>
           <div className={styles.reportInfo}>
-            <div className={styles.infoCard}>
-              <div className={styles.infoLabel}>Período</div>
-              <div className={styles.infoValue} contentEditable suppressContentEditableWarning>Janeiro - Março 2025</div>
-            </div>
-            <div className={styles.infoCard}>
-              <div className={styles.infoLabel}>Responsável</div>
-              <div className={styles.infoValue} contentEditable suppressContentEditableWarning>João Silva - Coordenador T.I</div>
-            </div>
-            <div className={styles.infoCard}>
-              <div className={styles.infoLabel}>Data do Relatório</div>
-              <div className={styles.infoValue} contentEditable suppressContentEditableWarning>07 de Julho, 2025</div>
-            </div>
-            <div className={styles.infoCard}>
-              <div className={styles.infoLabel}>Departamento</div>
-              <div className={styles.infoValue} contentEditable suppressContentEditableWarning>Tecnologia da Informação</div>
+            <div className={styles.infoBlock}>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Período:</span>
+                <span className={styles.infoValue} contentEditable suppressContentEditableWarning>Janeiro - Março 2025</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Responsável:</span>
+                <span className={styles.infoValue} contentEditable suppressContentEditableWarning>João Silva - Coordenador T.I</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Data do Relatório:</span>
+                <span className={styles.infoValue} contentEditable suppressContentEditableWarning>07 de Julho, 2025</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Cargo:</span>
+                <span className={styles.infoValue} contentEditable suppressContentEditableWarning>Coordenador de Tecnologia da Informação</span>
+              </div>
             </div>
           </div>
-          <section className={styles.section}>
+          {/* <section className={styles.section}>
             <h2 className={styles.sectionTitle} contentEditable suppressContentEditableWarning>Resumo Executivo</h2>
             <p style={{ color: "#666", lineHeight: 1.8, fontSize: "1.1em" }} contentEditable suppressContentEditableWarning>
               Durante o período analisado, o departamento de T.I executou com sucesso 85% das atividades planejadas, 
@@ -191,7 +226,7 @@ export default function RelatorioTI() {
               Os principais destaques incluem a implementação do novo sistema de backup, atualização da rede corporativa 
               e treinamento da equipe em novas tecnologias.
             </p>
-          </section>
+          </section> */}
           <section className={styles.section}>
             <h2 className={styles.sectionTitle} contentEditable suppressContentEditableWarning>Atividades Realizadas</h2>
             <div className={styles.activityGrid}>
@@ -199,28 +234,36 @@ export default function RelatorioTI() {
                 <div className={styles.activityCard} key={i}>
                   <div className={styles.activityHeader}>
                     <h3 className={styles.activityTitle} contentEditable suppressContentEditableWarning>{a.titulo}</h3>
-                    <span
-                      className={
-                        a.status === "concluido"
-                          ? `${styles.status} ${styles.statusConcluido}`
+                    {mostrarStatus && (
+                      <span
+                        className={
+                          a.status === "concluido"
+                            ? `${styles.status} ${styles.statusConcluido}`
+                            : a.status === "em-andamento"
+                            ? `${styles.status} ${styles.statusEmAndamento}`
+                            : `${styles.status} ${styles.statusPendente}`
+                        }
+                        style={{ minWidth: 120, fontWeight: 600, borderRadius: 20, padding: "6px 15px" }}
+                      >
+                        {a.status === "concluido"
+                          ? "CONCLUÍDO"
                           : a.status === "em-andamento"
-                          ? `${styles.status} ${styles.statusEmAndamento}`
-                          : `${styles.status} ${styles.statusPendente}`
-                      }
-                      style={{ minWidth: 120, fontWeight: 600, borderRadius: 20, padding: "6px 15px" }}
-                    >
-                      {a.status === "concluido"
-                        ? "CONCLUÍDO"
-                        : a.status === "em-andamento"
-                        ? "EM ANDAMENTO"
-                        : "PENDENTE"}
-                    </span>
+                          ? "EM ANDAMENTO"
+                          : "PENDENTE"}
+                      </span>
+                    )}
                   </div>
                   <p className={styles.activityDescription} contentEditable suppressContentEditableWarning>{a.descricao}</p>
-                  <div className={styles.activityMeta}>
-                    <span contentEditable suppressContentEditableWarning>Prazo: {a.prazo}</span>
-                    <span contentEditable suppressContentEditableWarning>Prioridade: {a.prioridade}</span>
-                  </div>
+                  {(mostrarPrazo || mostrarPrioridade) && (
+                    <div className={styles.activityMeta}>
+                      {mostrarPrazo && (
+                        <span contentEditable suppressContentEditableWarning>Prazo: {a.prazo}</span>
+                      )}
+                      {mostrarPrioridade && (
+                        <span contentEditable suppressContentEditableWarning>Prioridade: {a.prioridade}</span>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -239,11 +282,13 @@ export default function RelatorioTI() {
             </div>
           </section> */}
         </div>
-        <footer className={styles.footer}>
-          <p style={{ color: "#2A3990", marginBottom: 20, fontWeight: 500 }} contentEditable suppressContentEditableWarning>
+        {/* <div className={styles.preFooter}>
+          <p contentEditable suppressContentEditableWarning>
             Este relatório apresenta um resumo das principais atividades realizadas pelo Departamento de T.I no período especificado.
             Para informações detalhadas ou esclarecimentos, entre em contato com a coordenação do departamento.
           </p>
+        </div> */}
+        <footer className={styles.footer}>
           <div className={styles.signature}>
             <div className={styles.signatureBlock}>
               <div className={styles.signatureLine}></div>
