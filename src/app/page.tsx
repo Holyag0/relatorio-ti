@@ -58,6 +58,7 @@ export default function RelatorioTI() {
   const [mostrarStatus, setMostrarStatus] = useState(true);
   const [mostrarPrazo, setMostrarPrazo] = useState(true);
   const [mostrarPrioridade, setMostrarPrioridade] = useState(true);
+  const [layoutPadrao, setLayoutPadrao] = useState(false);
 
   // Função para alterar status de uma atividade
   const alterarStatus = (index: number, novoStatus: string) => {
@@ -129,30 +130,44 @@ export default function RelatorioTI() {
           <div className={styles.painelGerenciar}>
             <strong className={styles.painelTitulo}>Gerenciar Atividades</strong>
             <div className={styles.painelControles}>
-              <label className={styles.painelCheckbox}>
-                <input
-                  type="checkbox"
-                  checked={mostrarStatus}
-                  onChange={(e) => setMostrarStatus(e.target.checked)}
-                />
-                <span>Mostrar Status das Atividades</span>
-              </label>
-              <label className={styles.painelCheckbox}>
-                <input
-                  type="checkbox"
-                  checked={mostrarPrazo}
-                  onChange={(e) => setMostrarPrazo(e.target.checked)}
-                />
-                <span>Mostrar Prazo das Atividades</span>
-              </label>
-              <label className={styles.painelCheckbox}>
-                <input
-                  type="checkbox"
-                  checked={mostrarPrioridade}
-                  onChange={(e) => setMostrarPrioridade(e.target.checked)}
-                />
-                <span>Mostrar Prioridade das Atividades</span>
-              </label>
+              <div className={styles.painelSecao}>
+                <strong className={styles.painelSubtitulo}>Layout do Relatório</strong>
+                <label className={styles.painelCheckbox}>
+                  <input
+                    type="checkbox"
+                    checked={layoutPadrao}
+                    onChange={(e) => setLayoutPadrao(e.target.checked)}
+                  />
+                  <span>Usar Layout Padrão (Preto e Branco)</span>
+                </label>
+              </div>
+              <div className={styles.painelSecao}>
+                <strong className={styles.painelSubtitulo}>Informações das Atividades</strong>
+                <label className={styles.painelCheckbox}>
+                  <input
+                    type="checkbox"
+                    checked={mostrarStatus}
+                    onChange={(e) => setMostrarStatus(e.target.checked)}
+                  />
+                  <span>Mostrar Status das Atividades</span>
+                </label>
+                <label className={styles.painelCheckbox}>
+                  <input
+                    type="checkbox"
+                    checked={mostrarPrazo}
+                    onChange={(e) => setMostrarPrazo(e.target.checked)}
+                  />
+                  <span>Mostrar Prazo das Atividades</span>
+                </label>
+                <label className={styles.painelCheckbox}>
+                  <input
+                    type="checkbox"
+                    checked={mostrarPrioridade}
+                    onChange={(e) => setMostrarPrioridade(e.target.checked)}
+                  />
+                  <span>Mostrar Prioridade das Atividades</span>
+                </label>
+              </div>
             </div>
             {atividades.map((a, i) => (
               <div key={i} className={styles.painelLinha}>
@@ -183,11 +198,15 @@ export default function RelatorioTI() {
           </div>
         )}
       </div>
-      <div className={styles.container} ref={relatorioRef}>
-        <header className={styles.header}>
+      <div className={`${styles.container} ${layoutPadrao ? styles.layoutPadrao : ''}`} ref={relatorioRef}>
+        <header className={`${styles.header} ${layoutPadrao ? styles.headerPadrao : ''}`}>
           <div className={styles.headerContent}>
             <div className={styles.logo}>
-              <img src="/logo.png" alt="Logo CABEMCE" style={{ height: 80, width: "auto", display: "block", margin: "0 auto 5px" }} />
+              <img 
+                src={layoutPadrao ? "/logo-padrao.png" : "/logo.png"} 
+                alt="Logo CABEMCE" 
+                style={{ height: 80, width: "auto", display: "block", margin: "0 auto 5px" }} 
+              />
               <h1 contentEditable suppressContentEditableWarning>Caixa Beneficente dos Militares do Ceará</h1>
             </div>
             <div className={styles.headerText}>

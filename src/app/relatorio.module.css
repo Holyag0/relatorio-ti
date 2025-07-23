@@ -3,6 +3,9 @@
     margin: 0 auto;
     background: #fff;
     overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 .header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
@@ -52,6 +55,7 @@
 }
 .content {
     padding: 40px;
+    flex: 1;
 }
 .reportInfo {
     margin-bottom: 40px;
@@ -189,6 +193,7 @@
     padding: 30px 40px;
     text-align: center;
     border-top: 1px solid #e9ecef;
+    margin-top: auto;
 }
 .rodapeImg {
     width: 100%;
@@ -329,6 +334,25 @@
 .painelCheckbox span {
   font-weight: 500;
 }
+.painelSecao {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.painelSecao:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.painelSubtitulo {
+  display: block;
+  font-size: 0.85em;
+  color: #2A3990;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 .painelLinha {
   display: flex;
   align-items: center;
@@ -385,4 +409,129 @@
 }
 .painelAdicionarBtn:hover {
   background: linear-gradient(135deg, #1A237E 0%, #4A90E2 100%);
+}
+
+/* Estilos específicos para PDF e impressão */
+@media print {
+    .container {
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .content {
+        flex: 1 !important;
+    }
+    
+    .footer {
+        margin-top: auto !important;
+        page-break-before: avoid !important;
+    }
+    
+    /* Garante que o rodapé sempre fique no final da página */
+    .footer::after {
+        content: "";
+        display: block;
+        height: 0;
+        clear: both;
+    }
+}
+
+/* Classe aplicada durante a geração do PDF */
+:global(.exportando-pdf) .container {
+    min-height: 297mm !important; /* Altura A4 */
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+:global(.exportando-pdf) .content {
+    flex: 1 !important;
+}
+
+:global(.exportando-pdf) .footer {
+    margin-top: auto !important;
+}
+
+/* Layout Padrão (Preto e Branco) */
+.headerPadrao {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    border-bottom: 3px solid #000000 !important;
+}
+
+.headerPadrao h1,
+.headerPadrao h2,
+.headerPadrao h3,
+.headerPadrao h4 {
+    color: #000000 !important;
+}
+
+.layoutPadrao .infoBlock {
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    border-left: 4px solid #000000 !important;
+    box-shadow: none !important;
+}
+
+.layoutPadrao .infoLabel {
+    color: #000000 !important;
+}
+
+.layoutPadrao .infoValue {
+    color: #333333 !important;
+}
+
+.layoutPadrao .sectionTitle {
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+}
+
+.layoutPadrao .sectionTitle::before {
+    background: #000000 !important;
+}
+
+.layoutPadrao .activityCard {
+    border: 1px solid #000000 !important;
+    box-shadow: none !important;
+}
+
+.layoutPadrao .activityTitle {
+    color: #000000 !important;
+}
+
+.layoutPadrao .activityDescription {
+    color: #333333 !important;
+}
+
+.layoutPadrao .activityMeta {
+    color: #666666 !important;
+}
+
+.layoutPadrao .status {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+}
+
+.layoutPadrao .preFooter {
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    border-left: 4px solid #000000 !important;
+}
+
+.layoutPadrao .preFooter p {
+    color: #000000 !important;
+}
+
+.layoutPadrao .footer {
+    border-top: 2px solid #000000 !important;
+}
+
+.layoutPadrao .signatureLine {
+    border-bottom: 1px solid #000000 !important;
+}
+
+.layoutPadrao .signatureLabel {
+    color: #000000 !important;
 } 
