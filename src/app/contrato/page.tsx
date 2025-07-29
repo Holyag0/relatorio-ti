@@ -9,7 +9,7 @@ export default function Contrato() {
 
   // Função para gerar PDF
   const gerarPDF = async () => {
-    if (!contratoRef.current) return;
+    if (!contratoRef.current || typeof window === 'undefined') return;
     
     try {
       document.body.classList.add("exportando-pdf");
@@ -46,9 +46,13 @@ export default function Contrato() {
       pdf.save("contrato-prestacao-servicos.pdf");
     } catch (error) {
       console.error("Erro ao gerar PDF:", error);
-      alert("Erro ao gerar PDF. Tente novamente.");
+      if (typeof window !== 'undefined') {
+        alert("Erro ao gerar PDF. Tente novamente.");
+      }
     } finally {
-      document.body.classList.remove("exportando-pdf");
+      if (typeof window !== 'undefined') {
+        document.body.classList.remove("exportando-pdf");
+      }
     }
   };
 

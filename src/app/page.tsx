@@ -1,7 +1,5 @@
 "use client";
 import { useRef, useState } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import styles from "./relatorio.module.css";
 
 const atividadesIniciais = [
@@ -86,12 +84,18 @@ export default function RelatorioTI() {
 
   // Geração de PDF ajustada para tentar caber mais conteúdo
   const gerarPDF = async () => {
-    if (!relatorioRef.current) return;
-    document.body.classList.add("exportando-pdf");
-    await new Promise(resolve => setTimeout(resolve, 100));
-    const canvas = await html2canvas(relatorioRef.current, { scale: 2, useCORS: true });
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
+    if (!relatorioRef.current || typeof window === 'undefined') return;
+    
+    try {
+      document.body.classList.add("exportando-pdf");
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      const html2canvas = (await import("html2canvas")).default;
+      const { jsPDF } = await import("jspdf");
+      
+      const canvas = await html2canvas(relatorioRef.current, { scale: 2, useCORS: true });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
     const imgProps = pdf.getImageProperties(imgData);
@@ -111,7 +115,19 @@ export default function RelatorioTI() {
       }
     }
     pdf.save("relatorio-ti.pdf");
-    document.body.classList.remove("exportando-pdf");
+    if (typeof window !== 'undefined') {
+      document.body.classList.remove("exportando-pdf");
+    }
+    } catch (error) {
+      console.error("Erro ao gerar PDF:", error);
+      if (typeof window !== 'undefined') {
+        alert("Erro ao gerar PDF. Tente novamente.");
+      }
+    } finally {
+      if (typeof window !== 'undefined') {
+        document.body.classList.remove("exportando-pdf");
+      }
+    }
   };
 
   return (

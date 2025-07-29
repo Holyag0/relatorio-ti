@@ -24,6 +24,12 @@ export default function Navigation() {
           >
             📄 Contrato
           </Link>
+          <Link 
+            href="/orcamento" 
+            className={`${styles.navLink} ${pathname === "/orcamento" ? styles.active : ""}`}
+          >
+            💰 Orçamento
+          </Link>
         </div>
       </div>
     </nav>
