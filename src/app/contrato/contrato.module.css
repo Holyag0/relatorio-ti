@@ -1,0 +1,475 @@
+/* Container principal */
+.container {
+  min-height: 100vh;
+  background: transparent;
+  padding: 20px;
+  font-family: 'Times New Roman', serif;
+  position: relative;
+}
+
+/* Painel de controles */
+.painelControles {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.gerarPdfBtn {
+  background: #d32f2f;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gerarPdfBtn:hover {
+  background: #b71c1c;
+  transform: translateY(-2px);
+}
+
+.expandirBtn {
+  background: #4a90e2;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.expandirBtn:hover {
+  background: #357abd;
+}
+
+.painelInfo {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  min-width: 280px;
+  border: 1px solid #e0e0e0;
+}
+
+.painelInfo h3 {
+  color: #4a90e2;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
+
+.painelInfo p {
+  margin: 0 0 16px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.dicas {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid #4a90e2;
+}
+
+.dicas strong {
+  color: #4a90e2;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.dicas ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #666;
+  font-size: 13px;
+}
+
+.dicas li {
+  margin-bottom: 4px;
+}
+
+/* Documento do contrato */
+.documento {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  padding: 48px;
+  line-height: 1.7;
+  color: #334155;
+}
+
+/* Cabeçalho */
+.cabecalho {
+  text-align: center;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+.cabecalho::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #4a90e2, #667eea);
+  border-radius: 2px;
+}
+
+.cabecalho h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+
+/* Seção das partes */
+.partes {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 40px;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  overflow: visible;
+  box-shadow: none;
+}
+
+.parte {
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+
+.camposGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.parte h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.parte h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(135deg, #4a90e2, #667eea);
+  border-radius: 2px;
+}
+
+.campo {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.campo span {
+  font-size: 15px;
+  color: #334155;
+  font-weight: 500;
+  padding: 0;
+  background: transparent;
+  border: none;
+  transition: all 0.2s ease;
+  min-height: auto;
+  display: inline;
+}
+
+.campo span:hover {
+  background: transparent;
+  border: none;
+}
+
+/* Cláusulas */
+.clausulas {
+  margin-bottom: 48px;
+}
+
+.clausula {
+  margin-bottom: 32px;
+  padding: 28px;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  position: relative;
+  overflow: visible;
+}
+
+.clausula::before {
+  content: none;
+}
+
+.clausula h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-left: 0;
+}
+
+.clausula h3::before {
+  content: none;
+}
+
+.clausula p {
+  margin: 16px 0;
+  text-align: justify;
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.clausula ul, .clausula ol {
+  margin: 16px 0;
+  padding-left: 28px;
+}
+
+.clausula li {
+  margin-bottom: 12px;
+  font-size: 15px;
+  text-align: justify;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.clausula strong {
+  color: #4a90e2;
+  font-weight: 600;
+}
+
+/* Assinaturas */
+.assinaturas {
+  margin-top: 48px;
+  padding-top: 32px;
+  position: relative;
+}
+
+.assinaturas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(135deg, #4a90e2, #667eea);
+  border-radius: 1px;
+}
+
+.localData {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 36px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.assinatura {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 36px;
+}
+
+.contratanteAssinatura, .contratadoAssinatura {
+  padding: 28px;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+}
+
+.contratanteAssinatura::before, .contratadoAssinatura::before {
+  content: none;
+}
+
+.contratanteAssinatura h4, .contratadoAssinatura h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contratanteAssinatura p, .contratadoAssinatura p {
+  margin: 12px 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+.contratanteAssinatura strong, .contratadoAssinatura strong {
+  color: #4a90e2;
+  font-weight: 600;
+}
+
+/* Campos editáveis - apenas para edição na tela */
+.campo span:focus {
+  outline: none;
+  background: rgba(74, 144, 226, 0.05);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+/* Estilos para PDF - remover todos os efeitos visuais */
+:global(.exportando-pdf) .campo span {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+:global(.exportando-pdf) [contenteditable="true"] {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .documento {
+    padding: 24px;
+    margin: 0;
+    border-radius: 12px;
+  }
+  
+  .partes {
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .camposGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .parte {
+    padding: 0;
+  }
+  
+  .assinatura {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .contratanteAssinatura, .contratadoAssinatura {
+    padding: 24px;
+  }
+  
+  .painelControles {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-bottom: 20px;
+    align-items: stretch;
+  }
+  
+  .painelInfo {
+    min-width: auto;
+  }
+  
+  .cabecalho h1 {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  
+  .clausula {
+    padding: 20px;
+  }
+  
+  .clausula h3 {
+    font-size: 16px;
+  }
+}
+
+/* Estilos para impressão/PDF */
+@media print {
+  .container {
+    background: white;
+    padding: 0;
+  }
+  
+  .documento {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 20px;
+  }
+  
+  .painelControles {
+    display: none !important;
+  }
+}
+
+/* Estilos para exportação de PDF */
+:global(.exportando-pdf) .container {
+  background: white !important;
+  padding: 0 !important;
+}
+
+:global(.exportando-pdf) .documento {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 20px !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+:global(.exportando-pdf) .painelControles {
+  display: none !important;
+} 

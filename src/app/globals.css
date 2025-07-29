@@ -20,7 +20,7 @@
 }
 
 body {
-    background: #F4F6FA;
+    background: #ffffff;
 }
 
 h1 {
@@ -33,4 +33,26 @@ h1 {
   h1 {
     font-size: 2em;
   }
+}
+
+/* Estilos para campos editáveis */
+[contenteditable="true"] {
+  border: 1px solid transparent;
+  padding: 0;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  min-height: 1.2em;
+  display: inline;
+}
+
+[contenteditable="true"]:hover {
+  border-color: transparent;
+  background: transparent;
+}
+
+[contenteditable="true"]:focus {
+  outline: none;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
 }
