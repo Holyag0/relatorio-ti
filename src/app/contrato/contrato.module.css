@@ -369,14 +369,6 @@
   box-shadow: none !important;
 }
 
-:global(.exportando-pdf) [contenteditable="true"] {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
   .container {

@@ -56,3 +56,12 @@ h1 {
   background: transparent;
   box-shadow: none;
 }
+
+/* Estilos para PDF - remover todos os efeitos visuais */
+.exportando-pdf [contenteditable="true"] {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
