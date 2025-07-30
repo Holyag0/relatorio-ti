@@ -65,3 +65,26 @@ h1 {
   border-radius: 0 !important;
   box-shadow: none !important;
 }
+
+/* Estilos para correção de sobreposição de texto no PDF */
+.exportando-pdf * {
+  font-family: Arial, sans-serif !important;
+  word-spacing: normal !important;
+  letter-spacing: normal !important;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+.exportando-pdf h1, .exportando-pdf h2, .exportando-pdf h3, .exportando-pdf h4, .exportando-pdf h5, .exportando-pdf h6 {
+  word-spacing: 0.1em !important;
+  letter-spacing: 0.05em !important;
+}
+
+.exportando-pdf p, .exportando-pdf span, .exportando-pdf div {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.4 !important;
+}
