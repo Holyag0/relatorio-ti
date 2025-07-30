@@ -18,12 +18,12 @@ export default function Navigation() {
           >
             📊 Relatório T.I
           </Link>
-          <Link 
+          {/* <Link 
             href="/contrato" 
             className={`${styles.navLink} ${pathname === "/contrato" ? styles.active : ""}`}
           >
             📄 Contrato
-          </Link>
+          </Link> */}
           <Link 
             href="/orcamento" 
             className={`${styles.navLink} ${pathname === "/orcamento" ? styles.active : ""}`}
