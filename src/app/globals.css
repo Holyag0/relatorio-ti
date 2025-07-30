@@ -1,15 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -87,4 +82,201 @@ h1 {
   white-space: normal !important;
   word-break: normal !important;
   line-height: 1.4 !important;
+}
+
+/* Estilos específicos para contrato no PDF */
+.exportando-pdf .documento {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 20px !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+.exportando-pdf .campo span {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.5 !important;
+}
+
+.exportando-pdf .clausula p {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.6 !important;
+}
+
+/* Estilos específicos para orçamento no PDF */
+.exportando-pdf .tabela {
+  font-size: 13px !important;
+}
+
+.exportando-pdf .tabela th,
+.exportando-pdf .tabela td {
+  padding: 10px 12px !important;
+  font-size: 13px !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.4 !important;
+}
+
+.exportando-pdf .tabela th:last-child {
+  text-align: right !important;
+}
+
+.exportando-pdf .tabela td:last-child {
+  text-align: right !important;
+  padding-right: 12px !important;
+}
+
+.exportando-pdf .observacoes p {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.6 !important;
+}
+
+/* Estilos específicos para relatório no PDF */
+.exportando-pdf .container {
+  height: 297mm !important; /* Altura fixa A4 */
+  max-height: 297mm !important; /* Limita altura máxima */
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important; /* Previne overflow */
+  page-break-inside: avoid !important; /* Evita quebra de página */
+}
+
+.exportando-pdf .content {
+  flex: 1 !important;
+  padding: 20px !important; /* Reduzido de 40px para 20px */
+  background: white !important;
+  overflow: hidden !important; /* Previne overflow */
+  max-height: calc(297mm - 250px) !important; /* Reduzido para dar mais espaço ao footer */
+}
+
+.exportando-pdf .footer {
+  margin-top: auto !important;
+  flex-shrink: 0 !important; /* Impede que o footer encolha */
+  min-height: 150px !important; /* Aumentado para garantir espaço */
+  max-height: 150px !important; /* Aumentado para garantir espaço */
+  page-break-inside: avoid !important; /* Evita quebra de página */
+  page-break-before: avoid !important; /* Evita quebra antes */
+  page-break-after: avoid !important; /* Evita quebra depois */
+}
+
+.exportando-pdf .section {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important; /* Previne overflow */
+  max-height: calc(297mm - 350px) !important; /* Reduzido para garantir espaço */
+}
+
+.exportando-pdf .activityGrid {
+  flex: 1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 15px !important; /* Reduzido de 25px para 15px */
+  overflow: hidden !important; /* Previne overflow */
+  max-height: calc(297mm - 450px) !important; /* Reduzido significativamente */
+}
+
+.exportando-pdf .activityDescription {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.8 !important;
+  font-size: 14px !important;
+  letter-spacing: 0.5px !important;
+  word-spacing: 1px !important;
+}
+
+.exportando-pdf .activityTitle {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.3px !important;
+  word-spacing: 0.5px !important;
+}
+
+.exportando-pdf .activityCard {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  padding: 20px !important;
+}
+
+.exportando-pdf .infoValue {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.2px !important;
+}
+
+.exportando-pdf .sectionTitle {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 40px !important;
+}
+
+.exportando-pdf .headerText h1,
+.exportando-pdf .headerText h2,
+.exportando-pdf .headerText h3,
+.exportando-pdf .headerText h4 {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.3px !important;
+  word-spacing: 0.5px !important;
+}
+
+/* Estilos para limitar o header no PDF */
+.exportando-pdf .header {
+  flex-shrink: 0 !important; /* Impede que o header encolha */
+  min-height: 120px !important; /* Reduzido de 150px para 120px */
+  max-height: 120px !important; /* Reduzido de 150px para 120px */
+  overflow: hidden !important; /* Previne overflow */
+  page-break-inside: avoid !important; /* Evita quebra de página */
+}
+
+.exportando-pdf .reportInfo {
+  flex-shrink: 0 !important; /* Impede que a seção de info encolha */
+  min-height: 60px !important; /* Reduzido de 80px para 60px */
+  max-height: 60px !important; /* Reduzido de 80px para 60px */
+  overflow: hidden !important; /* Previne overflow */
+  page-break-inside: avoid !important; /* Evita quebra de página */
+}
+
+/* Estilos para o título das atividades */
+.exportando-pdf .atividadesTitle {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 20px !important; /* Reduzido de 40px para 20px */
+  font-family: Arial, sans-serif !important;
+  flex-shrink: 0 !important; /* Impede que o título encolha */
+  max-height: 40px !important; /* Reduzido de 60px para 40px */
+  overflow: hidden !important; /* Previne overflow */
+  page-break-inside: avoid !important; /* Evita quebra de página */
 }

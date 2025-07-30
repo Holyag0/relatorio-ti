@@ -12,23 +12,24 @@ interface Item {
 
 export default function Orcamento() {
   const orcamentoRef = useRef<HTMLDivElement>(null);
-  const [itens, setItens] = useState<Item[]>([
+  const [itens] = useState<Item[]>([
     { id: 1, codigo: "001", descricao: "Serviço de Desenvolvimento", quantidade: "1", valor: "5000,00" },
     { id: 2, codigo: "002", descricao: "Licença de Software", quantidade: "2", valor: "1500,00" },
   ]);
 
-  const adicionarItem = () => {
-    const novoId = Math.max(...itens.map(item => item.id), 0) + 1;
-    setItens([...itens, { id: novoId, codigo: "", descricao: "", quantidade: "1", valor: "0,00" }]);
-  };
+  // Funções para gerenciar itens (não utilizadas no momento, mas mantidas para futuras funcionalidades)
+  // const adicionarItem = () => {
+  //   const novoId = Math.max(...itens.map(item => item.id), 0) + 1;
+  //   setItens([...itens, { id: novoId, codigo: "", descricao: "", quantidade: "1", valor: "0,00" }]);
+  // };
 
-  const removerItem = (id: number) => {
-    setItens(itens.filter(item => item.id !== id));
-  };
+  // const removerItem = (id: number) => {
+  //   setItens(itens.filter(item => item.id !== id));
+  // };
 
-  const atualizarItem = (id: number, campo: keyof Item, valor: string) => {
-    setItens(itens.map(item => item.id === id ? { ...item, [campo]: valor } : item));
-  };
+  // const atualizarItem = (id: number, campo: keyof Item, valor: string) => {
+  //   setItens(itens.map(item => item.id === id ? { ...item, [campo]: valor } : item));
+  // };
 
   const calcularTotal = () => {
     return itens.reduce((total, item) => {

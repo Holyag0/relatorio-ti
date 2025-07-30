@@ -116,20 +116,12 @@
 }
 .sectionTitle {
     font-size: 1.8em;
+    font-weight: 700;
     color: #667eea;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     padding-bottom: 10px;
     border-bottom: 3px solid #e9ecef;
     position: relative;
-}
-.sectionTitle::before {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 .activityGrid {
     display: grid;
@@ -310,10 +302,34 @@
   box-shadow: 0 2px 12px rgba(42,57,144,0.10);
   padding: 18px 16px 16px 16px;
   min-width: 320px;
+  max-width: 350px;
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
   gap: 14px;
   border: 1px solid #E8E8E8;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #667eea #f0f0f0;
+}
+
+.painelGerenciar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.painelGerenciar::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+
+.painelGerenciar::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+.painelGerenciar::-webkit-scrollbar-thumb:hover {
+  background: #5a6fd8;
 }
 .painelTitulo {
   color: #2A3990;
@@ -331,6 +347,28 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #667eea #f0f0f0;
+}
+
+.painelControles::-webkit-scrollbar {
+  width: 4px;
+}
+
+.painelControles::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 2px;
+}
+
+.painelControles::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 2px;
+}
+
+.painelControles::-webkit-scrollbar-thumb:hover {
+  background: #5a6fd8;
 }
 .painelCheckbox {
   display: flex;
@@ -426,6 +464,36 @@
   background: linear-gradient(135deg, #1A237E 0%, #4A90E2 100%);
 }
 
+/* Área de atividades com scroll */
+.painelAtividades {
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #667eea #f0f0f0;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px;
+  background: #fafafa;
+}
+
+.painelAtividades::-webkit-scrollbar {
+  width: 4px;
+}
+
+.painelAtividades::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 2px;
+}
+
+.painelAtividades::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 2px;
+}
+
+.painelAtividades::-webkit-scrollbar-thumb:hover {
+  background: #5a6fd8;
+}
+
 /* Estilos específicos para PDF e impressão */
 @media print {
     .container {
@@ -450,98 +518,6 @@
         height: 0;
         clear: both;
     }
-}
-
-/* Classe aplicada durante a geração do PDF */
-:global(.exportando-pdf) .container {
-    min-height: 297mm !important; /* Altura A4 */
-    display: flex !important;
-    flex-direction: column !important;
-    font-family: Arial, sans-serif !important;
-    word-spacing: normal !important;
-    letter-spacing: normal !important;
-    text-rendering: optimizeLegibility !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-}
-
-:global(.exportando-pdf) .content {
-    flex: 1 !important;
-    padding: 40px !important;
-    background: white !important;
-}
-
-:global(.exportando-pdf) .footer {
-    margin-top: auto !important;
-}
-
-/* Correções específicas para sobreposição de texto no PDF */
-:global(.exportando-pdf) .activityDescription {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    word-break: normal !important;
-    line-height: 1.8 !important;
-    font-size: 14px !important;
-    letter-spacing: 0.5px !important;
-    word-spacing: 1px !important;
-    text-rendering: optimizeLegibility !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-    font-family: Arial, sans-serif !important;
-}
-
-:global(.exportando-pdf) .activityTitle {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    word-break: normal !important;
-    line-height: 1.4 !important;
-    letter-spacing: 0.3px !important;
-    word-spacing: 0.5px !important;
-    font-family: Arial, sans-serif !important;
-}
-
-:global(.exportando-pdf) .activityCard {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    word-break: normal !important;
-    padding: 20px !important;
-}
-
-:global(.exportando-pdf) .infoValue {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    word-break: normal !important;
-    line-height: 1.5 !important;
-    letter-spacing: 0.2px !important;
-    font-family: Arial, sans-serif !important;
-}
-
-:global(.exportando-pdf) .sectionTitle {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    word-break: normal !important;
-    line-height: 1.3 !important;
-    letter-spacing: 0.5px !important;
-    font-family: Arial, sans-serif !important;
-}
-
-:global(.exportando-pdf) .headerText h1,
-:global(.exportando-pdf) .headerText h2,
-:global(.exportando-pdf) .headerText h3,
-:global(.exportando-pdf) .headerText h4 {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    word-break: normal !important;
-    line-height: 1.2 !important;
-    letter-spacing: 0.3px !important;
-    word-spacing: 0.5px !important;
-    font-family: Arial, sans-serif !important;
 }
 
 /* Layout Padrão (Preto e Branco) */
@@ -578,10 +554,6 @@
 .layoutPadrao .sectionTitle {
     color: #000000 !important;
     border-bottom: 2px solid #000000 !important;
-}
-
-.layoutPadrao .sectionTitle::before {
-    background: #000000 !important;
 }
 
 .layoutPadrao .activityCard {
@@ -627,4 +599,175 @@
 
 .layoutPadrao .signatureLabel {
     color: #000000 !important;
+}
+
+/* Estilos para o botão Guia */
+.guiaBtn {
+  background: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+
+.guiaBtn:hover {
+  background: #45a049;
+}
+
+/* Estilos para o Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.modalCloseBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.modalCloseBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.modalBody {
+  padding: 24px;
+}
+
+.guiaSecao {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.guiaSecao:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.guiaSecao h3 {
+  color: #2A3990;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.guiaSecao ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.guiaSecao li {
+  padding: 8px 0;
+  color: #555;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 20px;
+}
+
+.guiaSecao li:before {
+  content: "•";
+  color: #667eea;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 8px;
+}
+
+.guiaSecao strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Responsividade do Modal */
+@media (max-width: 768px) {
+  .modalContent {
+    margin: 10px;
+    max-height: 95vh;
+  }
+  
+  .modalHeader {
+    padding: 16px 20px;
+  }
+  
+  .modalHeader h2 {
+    font-size: 1.3em;
+  }
+  
+  .modalBody {
+    padding: 20px;
+  }
+  
+  .guiaSecao h3 {
+    font-size: 1.1em;
+  }
 } 

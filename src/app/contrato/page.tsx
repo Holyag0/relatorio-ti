@@ -1,10 +1,9 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import styles from "./contrato.module.css";
 
 export default function Contrato() {
   const contratoRef = useRef<HTMLDivElement>(null);
-  const [painelAberto, setPainelAberto] = useState(false);
 
   const gerarPDF = async () => {
     if (!contratoRef.current) return;
