@@ -1,66 +1,35 @@
 "use client";
-
 import { useRef, useState } from "react";
 import styles from "./orcamento.module.css";
 
 interface Item {
   id: number;
+  codigo: string;
+  descricao: string;
   quantidade: string;
-  especificacao: string;
   valor: string;
 }
 
 export default function Orcamento() {
-  const orcamentoRef = useRef(null);
-  const [painelAberto, setPainelAberto] = useState(true);
-  const [mostrarObservacoes, setMostrarObservacoes] = useState(true);
-  const [mostrarSolicitante, setMostrarSolicitante] = useState(true);
-  const [mostrarAprovacao, setMostrarAprovacao] = useState(true);
+  const orcamentoRef = useRef<HTMLDivElement>(null);
   const [itens, setItens] = useState<Item[]>([
-    {
-      id: 1,
-      quantidade: "1",
-      especificacao: "KIT MICROFONE",
-      valor: "389,00"
-    },
-    {
-      id: 2,
-      quantidade: "1",
-      especificacao: "MINI TECLADO SEM FIO",
-      valor: "50,00"
-    },
-    {
-      id: 3,
-      quantidade: "1",
-      especificacao: "HUB USB Baseus 1 metro",
-      valor: "150,00"
-    }
+    { id: 1, codigo: "001", descricao: "Serviço de Desenvolvimento", quantidade: "1", valor: "5000,00" },
+    { id: 2, codigo: "002", descricao: "Licença de Software", quantidade: "2", valor: "1500,00" },
   ]);
 
-  // Função para adicionar novo item
   const adicionarItem = () => {
-    const novoItem: Item = {
-      id: itens.length + 1,
-      quantidade: "1",
-      especificacao: "Novo Item",
-      valor: "0,00"
-    };
-    setItens([...itens, novoItem]);
+    const novoId = Math.max(...itens.map(item => item.id), 0) + 1;
+    setItens([...itens, { id: novoId, codigo: "", descricao: "", quantidade: "1", valor: "0,00" }]);
   };
 
-  // Função para remover item
   const removerItem = (id: number) => {
     setItens(itens.filter(item => item.id !== id));
   };
 
-  // Função para atualizar item
   const atualizarItem = (id: number, campo: keyof Item, valor: string) => {
-    setItens(itens.map(item => 
-      item.id === id ? { ...item, [campo]: valor } : item
-    ));
+    setItens(itens.map(item => item.id === id ? { ...item, [campo]: valor } : item));
   };
 
-  // Função para calcular total
   const calcularTotal = () => {
     return itens.reduce((total, item) => {
       const valor = parseFloat(item.valor.replace(',', '.')) || 0;
@@ -69,55 +38,60 @@ export default function Orcamento() {
     }, 0);
   };
 
-  // Função para formatar valor em reais
   const formatarValor = (valor: number) => {
-    return valor.toLocaleString('pt-BR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
+    return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
-  // Função para gerar PDF
   const gerarPDF = async () => {
-    if (!orcamentoRef.current || typeof window === 'undefined') return;
+    if (!orcamentoRef.current) return;
     
     try {
+      const { default: html2canvas } = await import('html2canvas');
+      const { default: jsPDF } = await import('jspdf');
+      
       document.body.classList.add("exportando-pdf");
+      await new Promise(resolve => setTimeout(resolve, 300));
       
-      const html2canvas = (await import("html2canvas")).default;
-      const { jsPDF } = await import("jspdf");
-      
-      const canvas = await html2canvas(orcamentoRef.current, {
-        scale: 2,
+      const canvas = await html2canvas(orcamentoRef.current, { 
+        scale: 2, 
         useCORS: true,
         allowTaint: true,
         backgroundColor: "#ffffff",
+        logging: false,
+        removeContainer: true,
+        foreignObjectRendering: false,
+        imageTimeout: 0,
+        ignoreElements: (element) => {
+          return element.classList.contains('noPrint');
+        }
       });
       
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("l", "mm", "a4"); // Orientação paisagem
-      
-      const imgWidth = 297; // Largura A4 paisagem
-      const pageHeight = 210; // Altura A4 paisagem
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 0;
-      
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+      const pdf = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pageWidth;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      if (pdfHeight < pageHeight) {
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      } else {
+        let position = 0;
+        let remainingHeight = pdfHeight;
+        while (remainingHeight > 0) {
+          pdf.addImage(imgData, "PNG", 0, position ? -position : 0, pdfWidth, pdfHeight);
+          remainingHeight -= pageHeight;
+          position += pageHeight;
+          if (remainingHeight > 0) pdf.addPage();
+        }
       }
       
       pdf.save("orcamento.pdf");
     } catch (error) {
-      console.error("Erro ao gerar PDF:", error);
+      console.error('Erro ao gerar PDF:', error);
       if (typeof window !== 'undefined') {
-        alert("Erro ao gerar PDF. Tente novamente.");
+        alert('Erro ao gerar PDF. Tente novamente.');
       }
     } finally {
       if (typeof window !== 'undefined') {
@@ -127,183 +101,133 @@ export default function Orcamento() {
   };
 
   return (
-    <div className={styles.container}>
-      {/* Painel de Controles */}
-      <div className={styles.painelControles}>
-        <button onClick={gerarPDF} className={styles.gerarPdfBtn}>
+    <div style={{ background: "linear-gradient(135deg, #F4F6FA 0%, #E8E8E8 100%)", minHeight: "100vh", padding: 20 }}>
+      <div style={{ position: "fixed", top: 20, right: 20, zIndex: 1000, display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-end" }}>
+        <button onClick={gerarPDF} style={{
+          background: '#D32F2F',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '8px',
+          padding: '14px 32px',
+          fontWeight: '700',
+          fontSize: '18px',
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+          boxShadow: '0 4px 15px rgba(211, 47, 47, 0.3)'
+        }}>
           Gerar PDF
         </button>
-        <button 
-          onClick={() => setPainelAberto(!painelAberto)} 
-          className={styles.expandirBtn}
+        <button
+          onClick={() => window.open('/', '_blank')}
+          style={{
+            background: '#FF9800',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '8px',
+            padding: '14px 32px',
+            fontWeight: '700',
+            fontSize: '18px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(255, 152, 0, 0.3)'
+          }}
         >
-          {painelAberto ? "Recolher Controles" : "Expandir Controles"}
+          Relatório
         </button>
-        
-        {painelAberto && (
-          <div className={styles.painelInfo}>
-            <h3>📋 Orçamento de Material</h3>
-            <p>Gerencie os itens do orçamento e edite os campos diretamente no documento.</p>
-            
-            <div className={styles.controlesItens}>
-              <button onClick={adicionarItem} className={styles.adicionarBtn}>
-                ➕ Adicionar Item
-              </button>
-              <div className={styles.totalInfo}>
-                <strong>Total: R$ {formatarValor(calcularTotal())}</strong>
-              </div>
-            </div>
-
-            <div className={styles.toggles}>
-              <h4>Seções do Documento:</h4>
-              <label className={styles.toggleItem}>
-                <input
-                  type="checkbox"
-                  checked={mostrarSolicitante}
-                  onChange={(e) => setMostrarSolicitante(e.target.checked)}
-                />
-                <span>📝 Solicitante e Data</span>
-              </label>
-              <label className={styles.toggleItem}>
-                <input
-                  type="checkbox"
-                  checked={mostrarObservacoes}
-                  onChange={(e) => setMostrarObservacoes(e.target.checked)}
-                />
-                <span>📋 Observações</span>
-              </label>
-              <label className={styles.toggleItem}>
-                <input
-                  type="checkbox"
-                  checked={mostrarAprovacao}
-                  onChange={(e) => setMostrarAprovacao(e.target.checked)}
-                />
-                <span>✍️ Assinaturas</span>
-              </label>
-            </div>
-
-            <div className={styles.listaItens}>
-              <h4>Itens ({itens.length}):</h4>
-              {itens.map((item) => (
-                <div key={item.id} className={styles.itemControle}>
-                  <span className={styles.itemNumero}>{item.id}</span>
-                  <span className={styles.itemDescricao}>{item.especificacao}</span>
-                  <span className={styles.itemValor}>R$ {item.valor}</span>
-                  <button 
-                    onClick={() => removerItem(item.id)}
-                    className={styles.removerBtn}
-                  >
-                    🗑️
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.dicas}>
-              <strong>💡 Dicas:</strong>
-              <ul>
-                <li>Clique em qualquer texto para editar</li>
-                <li>Use Tab para navegar entre campos</li>
-                <li>O total é calculado automaticamente</li>
-                <li>Adicione ou remova itens conforme necessário</li>
-              </ul>
-            </div>
-          </div>
-        )}
+        <button
+          onClick={() => window.open('/contrato', '_blank')}
+          style={{
+            background: '#2196F3',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '8px',
+            padding: '14px 32px',
+            fontWeight: '700',
+            fontSize: '18px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(33, 150, 243, 0.3)'
+          }}
+        >
+          Contrato
+        </button>
       </div>
-
-      {/* Documento do Orçamento */}
+      
       <div className={styles.documento} ref={orcamentoRef}>
         <div className={styles.cabecalho}>
-          <h1>ORÇAMENTO DE MATERIAL</h1>
+          <h1 contentEditable suppressContentEditableWarning>ORÇAMENTO DE MATERIAL</h1>
         </div>
-
-        {mostrarSolicitante && (
-          <div className={styles.informacoes}>
-            <div className={styles.campo}>
-              <label>Solicitante:</label>
-              <span contentEditable suppressContentEditableWarning>Thiago Holanda</span>
-            </div>
-            <div className={styles.campo}>
-              <label>Data:</label>
-              <span contentEditable suppressContentEditableWarning>07 de Julho de 2025</span>
-            </div>
+        
+        <div className={styles.informacoes}>
+          <div className={styles.campo}>
+            <label>Empresa:</label>
+            <span contentEditable suppressContentEditableWarning>Caixa Beneficente dos Militares do Ceará</span>
           </div>
-        )}
-
+          <div className={styles.campo}>
+            <label>Data:</label>
+            <span contentEditable suppressContentEditableWarning>30 de Julho, 2025</span>
+          </div>
+          <div className={styles.campo}>
+            <label>Responsável:</label>
+            <span contentEditable suppressContentEditableWarning>João Silva - Coordenador T.I</span>
+          </div>
+        </div>
+        
         <div className={styles.tabelaContainer}>
-          <h2>ITENS</h2>
+          <h2>Itens</h2>
           <table className={styles.tabela}>
             <thead>
               <tr>
-                <th>Item</th>
-                <th>Quant.</th>
-                <th>Especificação do Material</th>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Qtd</th>
                 <th>Valor (R$)</th>
               </tr>
             </thead>
             <tbody>
-              {itens.map((item, index) => (
+              {itens.map((item) => (
                 <tr key={item.id}>
-                  <td>{index + 1}</td>
                   <td>
-                    <span 
-                      contentEditable 
-                      suppressContentEditableWarning
-                      onBlur={(e) => atualizarItem(item.id, 'quantidade', e.target.textContent || '1')}
-                    >
-                      {item.quantidade}
-                    </span>
+                    <span contentEditable suppressContentEditableWarning>{item.codigo}</span>
                   </td>
                   <td>
-                    <span 
-                      contentEditable 
-                      suppressContentEditableWarning
-                      onBlur={(e) => atualizarItem(item.id, 'especificacao', e.target.textContent || '')}
-                    >
-                      {item.especificacao}
-                    </span>
+                    <span contentEditable suppressContentEditableWarning>{item.descricao}</span>
                   </td>
                   <td>
-                    <span 
-                      contentEditable 
-                      suppressContentEditableWarning
-                      onBlur={(e) => atualizarItem(item.id, 'valor', e.target.textContent || '0,00')}
-                    >
-                      {item.valor}
-                    </span>
+                    <span contentEditable suppressContentEditableWarning>{item.quantidade}</span>
+                  </td>
+                  <td>
+                    <span contentEditable suppressContentEditableWarning>{item.valor}</span>
                   </td>
                 </tr>
               ))}
+            </tbody>
+            <tfoot>
               <tr className={styles.linhaTotal}>
-                <td colSpan={3}><strong>TOTAL</strong></td>
+                <td colSpan={3}><strong>Total:</strong></td>
                 <td><strong>R$ {formatarValor(calcularTotal())}</strong></td>
               </tr>
-            </tbody>
+            </tfoot>
           </table>
         </div>
-
-        {mostrarObservacoes && (
-          <div className={styles.observacoes}>
-            <h3>Observações:</h3>
-            <p contentEditable suppressContentEditableWarning>
-              Este orçamento apresenta os valores dos materiais solicitados para o setor de Tecnologia da Informação.
-            </p>
+        
+        <div className={styles.observacoes}>
+          <h3>Observações:</h3>
+          <p contentEditable suppressContentEditableWarning>
+            Este orçamento tem validade de 30 dias a partir da data de emissão. Os valores estão sujeitos a alteração conforme disponibilidade dos materiais.
+          </p>
+        </div>
+        
+        <div className={styles.assinaturas}>
+          <div className={styles.assinatura}>
+            <div className={styles.linha}></div>
+            <p>Solicitante</p>
           </div>
-        )}
-
-        {mostrarAprovacao && (
-          <div className={styles.assinaturas}>
-            <div className={styles.assinatura}>
-              <div className={styles.linhaAssinatura}></div>
-              <p><strong>Solicitante</strong></p>
-            </div>
-            <div className={styles.assinatura}>
-              <div className={styles.linhaAssinatura}></div>
-              <p><strong>Aprovação</strong></p>
-            </div>
+          <div className={styles.assinatura}>
+            <div className={styles.linha}></div>
+            <p>Aprovação</p>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
