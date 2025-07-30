@@ -1,6 +1,5 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
 import styles from "./relatorio.module.css";
 
 const atividadesIniciais = [
@@ -77,24 +76,7 @@ export default function RelatorioTI() {
     setInvisibleSpaces(prev => Math.max(0, prev - 1));
   };
 
-  const resetInvisibleSpaces = () => {
-    setInvisibleSpaces(0);
-  };
 
-  const saveSpacingConfig = () => {
-    localStorage.setItem('relatorioSpacing', invisibleSpaces.toString());
-    alert('Configuração de espaçamento salva!');
-  };
-
-  const loadSpacingConfig = () => {
-    const saved = localStorage.getItem('relatorioSpacing');
-    if (saved) {
-      setInvisibleSpaces(parseInt(saved));
-      alert('Configuração de espaçamento carregada!');
-    } else {
-      alert('Nenhuma configuração salva encontrada.');
-    }
-  };
 
   // Função para alterar status de uma atividade
   const alterarStatus = (index: number, novoStatus: string) => {
