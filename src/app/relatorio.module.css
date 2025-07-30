@@ -771,3 +771,37 @@
     font-size: 1.1em;
   }
 } 
+
+/* Classe para espaços invisíveis */
+.invisibleSpace {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  /* Aparecer sempre quando criado programaticamente */
+  display: block;
+  width: 100%;
+  min-height: 20px;
+}
+
+/* Indicador visual de espaços invisíveis (apenas para debug) */
+.invisibleSpace::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: rgba(74, 144, 226, 0.2);
+  margin: 0;
+  border-radius: 1px;
+}
+
+/* Garantir que elementos com classe noPrint não apareçam no PDF */
+.exportando-pdf .noPrint {
+  display: none !important;
+}
+
+/* Também esconder durante impressão */
+@media print {
+  .noPrint {
+    display: none !important;
+  }
+} 
