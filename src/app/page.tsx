@@ -413,7 +413,7 @@ export default function RelatorioTI() {
             )}
             <div className={styles.activityGrid}>
               {atividades.map((a, i) => (
-                <div className={styles.activityCard} key={i}>
+                <div className={`${styles.activityCard} ${i === 1 ? styles.activityCardHighlight : ''}`} key={i}>
                   <div className={styles.activityHeader}>
                     <h3 className={styles.activityTitle} contentEditable suppressContentEditableWarning>{a.titulo}</h3>
                     {mostrarStatus && (

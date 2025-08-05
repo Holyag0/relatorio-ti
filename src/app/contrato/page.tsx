@@ -208,8 +208,6 @@ export default function Contrato() {
           let remainingHeight = contentHeight;
           
           while (remainingHeight > 0) {
-            const heightForThisPage = Math.min(remainingHeight, pageHeight - (margin * 2));
-            
             pdf.addImage(
               sections[i],
               "PNG",

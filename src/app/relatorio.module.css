@@ -140,6 +140,25 @@
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     transform: translateY(-2px);
 }
+
+.activityCardHighlight {
+    border: 2px solid #0369a1 !important;
+    box-shadow: 0 8px 20px rgba(3, 105, 161, 0.15) !important;
+    position: relative;
+}
+
+.activityCardHighlight::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #0369a1, #0ea5e9);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.08;
+}
 .activityHeader {
     display: flex;
     justify-content: space-between;
@@ -559,6 +578,89 @@
 .layoutPadrao .activityCard {
     border: 1px solid #000000 !important;
     box-shadow: none !important;
+}
+
+.layoutPadrao .activityCard.activityCardHighlight {
+    border: 2px solid #374151 !important;
+    box-shadow: 0 4px 12px rgba(55, 65, 81, 0.15) !important;
+    position: relative !important;
+}
+
+.layoutPadrao .activityCard.activityCardHighlight::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #374151, #6b7280);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.05;
+}
+
+/* Regra adicional para garantir que funcione mesmo com CSS global */
+.container.layoutPadrao .activityCard.activityCardHighlight {
+    border: 2px solid #374151 !important;
+    box-shadow: 0 4px 12px rgba(55, 65, 81, 0.15) !important;
+    position: relative !important;
+}
+
+.container.layoutPadrao .activityCard.activityCardHighlight::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #374151, #6b7280);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.05;
+}
+
+/* Regra com máxima especificidade para garantir que funcione */
+div.container.layoutPadrao div.activityCard.activityCardHighlight {
+    border: 2px solid #374151 !important;
+    box-shadow: 0 4px 12px rgba(55, 65, 81, 0.15) !important;
+    position: relative !important;
+}
+
+div.container.layoutPadrao div.activityCard.activityCardHighlight::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #374151, #6b7280);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.05;
+}
+
+/* Regra final com máxima prioridade - atualizada em 2025 */
+.layoutPadrao .activityCard.activityCardHighlight,
+.container.layoutPadrao .activityCard.activityCardHighlight,
+div.container.layoutPadrao div.activityCard.activityCardHighlight {
+    border: 2px solid #374151 !important;
+    box-shadow: 0 4px 12px rgba(55, 65, 81, 0.15) !important;
+    position: relative !important;
+}
+
+.layoutPadrao .activityCard.activityCardHighlight::before,
+.container.layoutPadrao .activityCard.activityCardHighlight::before,
+div.container.layoutPadrao div.activityCard.activityCardHighlight::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #374151, #6b7280);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.05;
 }
 
 .layoutPadrao .activityTitle {
