@@ -639,29 +639,33 @@ div.container.layoutPadrao div.activityCard.activityCardHighlight::before {
     opacity: 0.05;
 }
 
-/* Regra final com máxima prioridade - atualizada em 2025 */
+/* Destaque para layout padrão - versão otimizada para preto e branco */
 .layoutPadrao .activityCard.activityCardHighlight,
 .container.layoutPadrao .activityCard.activityCardHighlight,
 div.container.layoutPadrao div.activityCard.activityCardHighlight {
-    border: 2px solid #374151 !important;
-    box-shadow: 0 4px 12px rgba(55, 65, 81, 0.15) !important;
+    border: 4px double #000000 !important;
+    background: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
     position: relative !important;
 }
 
-.layoutPadrao .activityCard.activityCardHighlight::before,
-.container.layoutPadrao .activityCard.activityCardHighlight::before,
-div.container.layoutPadrao div.activityCard.activityCardHighlight::before {
-    content: '';
+/* Indicador visual "DESTACADO" */
+.layoutPadrao .activityCard.activityCardHighlight::before {
+    content: 'DESTACADO';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, #374151, #6b7280);
-    border-radius: 17px;
-    z-index: -1;
-    opacity: 0.05;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000000;
+    color: #ffffff;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 3px;
+    z-index: 10;
 }
+
+/* Estrela removida - agora usando elemento HTML real */
 
 .layoutPadrao .activityTitle {
     color: #000000 !important;

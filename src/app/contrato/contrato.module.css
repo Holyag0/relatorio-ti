@@ -3,7 +3,7 @@
   min-height: 100vh;
   background: transparent;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: 'Times New Roman', serif;
   position: relative;
 }
 
@@ -102,63 +102,82 @@
 
 /* Documento do contrato */
 .documento {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   background: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  /* Configurações para melhor renderização no PDF */
-  page-break-inside: auto;
-  orphans: 3;
-  widows: 3;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  padding: 48px;
+  line-height: 1.7;
+  color: #334155;
 }
 
 /* Cabeçalho */
 .cabecalho {
   text-align: center;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #333;
-  page-break-after: avoid;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+.cabecalho::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #4a90e2, #667eea);
+  border-radius: 2px;
 }
 
 .cabecalho h1 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
   margin: 0;
   text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.2;
 }
 
 /* Seção das partes */
 .partes {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   margin-bottom: 40px;
-  page-break-inside: avoid;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  overflow: visible;
+  box-shadow: none;
 }
 
 .parte {
-  margin-bottom: 30px;
-  page-break-inside: avoid;
-}
-
-.parte h2 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 5px;
-  page-break-after: avoid;
+  width: 100%;
+  padding: 0;
+  position: relative;
 }
 
 .camposGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.parte h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 12px;
 }
 
 .parte h2::after {
@@ -173,23 +192,31 @@
 }
 
 .campo {
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
-  page-break-inside: avoid;
+  gap: 4px;
 }
 
 .campo label {
-  font-weight: bold;
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
 }
 
 .campo span {
-  color: #333;
-  font-size: 16px;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  color: #334155;
+  font-weight: 500;
+  padding: 0;
+  background: transparent;
+  border: none;
+  transition: all 0.2s ease;
+  min-height: auto;
+  display: inline;
 }
 
 .campo span:hover {
@@ -199,24 +226,17 @@
 
 /* Cláusulas */
 .clausulas {
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 }
 
 .clausula {
-  margin-bottom: 30px;
-  /* Configurações para evitar quebras inadequadas */
-  page-break-inside: avoid;
-  page-break-before: auto;
-  page-break-after: auto;
-  /* Garantir que pelo menos 3 linhas fiquem juntas */
-  orphans: 3;
-  widows: 3;
-  /* Espaçamento interno para melhor legibilidade */
-  padding-bottom: 15px;
-}
-
-.clausula:last-child {
-  margin-bottom: 0;
+  margin-bottom: 32px;
+  padding: 28px;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  position: relative;
+  overflow: visible;
 }
 
 .clausula::before {
@@ -224,12 +244,14 @@
 }
 
 .clausula h3 {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 12px;
-  /* Evitar quebra após o título da cláusula */
-  page-break-after: avoid;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-left: 0;
 }
 
 .clausula h3::before {
@@ -237,28 +259,24 @@
 }
 
 .clausula p {
-  color: #555;
-  margin-bottom: 12px;
+  margin: 16px 0;
   text-align: justify;
-  /* Evitar quebra no meio de parágrafos */
-  page-break-inside: avoid;
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.7;
 }
 
 .clausula ul, .clausula ol {
   margin: 16px 0;
   padding-left: 28px;
-  /* Evitar quebra no meio de listas */
-  page-break-inside: avoid;
 }
 
 .clausula li {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-size: 15px;
   text-align: justify;
   color: #475569;
   line-height: 1.6;
-  /* Evitar quebra no meio de itens de lista */
-  page-break-inside: avoid;
 }
 
 .clausula strong {
@@ -268,32 +286,36 @@
 
 /* Assinaturas */
 .assinaturas {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-  gap: 40px;
-  /* Garantir que as assinaturas fiquem juntas */
-  page-break-inside: avoid;
-  page-break-before: auto;
+  margin-top: 48px;
+  padding-top: 32px;
+  position: relative;
+}
+
+.assinaturas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(135deg, #4a90e2, #667eea);
+  border-radius: 1px;
+}
+
+.localData {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 36px;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .assinatura {
-  flex: 1;
-  text-align: center;
-  page-break-inside: avoid;
-}
-
-.linha {
-  border-top: 1px solid #333;
-  margin-bottom: 10px;
-  height: 1px;
-}
-
-.assinatura p {
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-  font-size: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 36px;
 }
 
 .contratanteAssinatura, .contratadoAssinatura {
@@ -330,30 +352,21 @@
   font-weight: 600;
 }
 
-/* Data e Local */
-.dataLocal {
-  text-align: center;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-  /* Garantir que a data fique com as assinaturas */
-  page-break-inside: avoid;
-  page-break-before: auto;
-}
-
-.dataLocal p {
-  font-size: 16px;
-  color: #333;
-  font-weight: 500;
-  margin: 0;
-}
-
 /* Campos editáveis - apenas para edição na tela */
 .campo span:focus {
   outline: none;
   background: rgba(74, 144, 226, 0.05);
   border-radius: 4px;
   padding: 2px 4px;
+}
+
+/* Estilos para PDF - remover todos os efeitos visuais */
+:global(.exportando-pdf) .campo span {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Responsividade */
@@ -428,151 +441,27 @@
     box-shadow: none;
     border-radius: 0;
     padding: 20px;
-    /* Configurações específicas para impressão */
-    page-break-inside: auto;
-    orphans: 3;
-    widows: 3;
   }
   
   .painelControles {
     display: none !important;
   }
-  
-  /* Quebras de página específicas para impressão */
-  .clausula {
-    page-break-inside: avoid;
-    page-break-before: auto;
-  }
-  
-  .assinaturas {
-    page-break-inside: avoid;
-    page-break-before: auto;
-  }
-  
-  .dataLocal {
-    page-break-inside: avoid;
-  }
 }
 
-/* Classe para forçar quebra de página */
-.pageBreak {
-  page-break-before: always;
-  break-before: page;
+/* Estilos para exportação de PDF */
+:global(.exportando-pdf) .container {
+  background: white !important;
+  padding: 0 !important;
 }
 
-/* Classe para evitar quebra de página */
-.noPageBreak {
-  page-break-inside: avoid;
-  break-inside: avoid;
+:global(.exportando-pdf) .documento {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 20px !important;
+  max-width: 100% !important;
+  margin: 0 !important;
 }
 
-/* Classe para forçar quebra de página */
-.forcePageBreak {
-  page-break-before: always;
-  break-before: page;
-  height: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/* Melhorias específicas para PDF */
-@media print {
-  .documento {
-    font-size: 12pt;
-    line-height: 1.4;
-  }
-  
-  .clausula {
-    margin-bottom: 20pt;
-    padding-bottom: 10pt;
-  }
-  
-  .clausula h3 {
-    margin-bottom: 8pt;
-    font-size: 14pt;
-  }
-  
-  .clausula p {
-    margin-bottom: 8pt;
-  }
-  
-  .clausula li {
-    margin-bottom: 6pt;
-  }
-}
-
-/* Classe para agrupamento de cláusulas */
-.clausulaGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.clausulaGroup .clausula {
-  margin-bottom: 0;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.clausulaGroup .clausula:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-/* Classe específica para grupos com 5 cláusulas (página 2) */
-.clausulaGroup.fiveClauses {
-  gap: 12px;
-}
-
-.clausulaGroup.fiveClauses .clausula {
-  padding-bottom: 12px;
-}
-
-/* Classe específica para grupos com 3 cláusulas + footer (página 3) */
-.clausulaGroup.threeClausesWithFooter {
-  gap: 18px;
-}
-
-.clausulaGroup.threeClausesWithFooter .clausula {
-  padding-bottom: 18px;
-}
-
-/* Classe para quando assinaturas estão na mesma página que cláusulas */
-.clausulaGroup + .assinaturas {
-  margin-top: 30px;
-}
-
-.clausulaGroup + .assinaturas + .dataLocal {
-  margin-top: 20px;
-}
-
-/* Espaçamento específico para a página 3 */
-.threeClausesWithFooter + .assinaturas {
-  margin-top: 25px;
-}
-
-.threeClausesWithFooter + .assinaturas + .dataLocal {
-  margin-top: 15px;
-}
-
-/* Classe para espaços invisíveis */
-.invisibleSpace {
-  background: transparent;
-  border: none;
-  margin: 0;
-  padding: 0;
-  /* Não aparecer na tela, apenas no PDF */
-  display: block;
-  width: 100%;
-  min-height: 20px;
-}
-
-/* Indicador visual de espaços invisíveis (apenas para debug) */
-.invisibleSpace::before {
-  content: '';
-  display: block;
-  height: 2px;
-  background: rgba(74, 144, 226, 0.2);
-  margin: 0;
-  border-radius: 1px;
+:global(.exportando-pdf) .painelControles {
+  display: none !important;
 } 
